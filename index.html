@@ -1,191 +1,212 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a0e14" />
-  <meta name="description" content="sientys — builder, tinkerer, digital craftsman." />
-  <title>sientys // ~/</title>
-  <link rel="icon" href="image.jpg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sientys — Developer, Creator, Digital Craftsman. Exploring the intersection of code and design.">
+  <meta name="theme-color" content="#0a0e14">
+  <title>Sientys — Digital Realm</title>
+  <link rel="icon" href="image.jpg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 背景网格 + 扫描线 -->
-  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Space code-particle canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
   <div class="bg-scan" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>
 
-  <!-- 顶部导航 -->
-  <header class="nav">
-    <a href="#top" class="nav__logo">
-      <span class="nav__bracket">[</span>sientys<span class="nav__bracket">]</span>
-      <span class="nav__cursor">_</span>
-    </a>
-    <nav class="nav__links" aria-label="主导航">
-      <a href="#about" class="nav__link"><span class="nav__idx">01</span> about</a>
-      <a href="#projects" class="nav__link"><span class="nav__idx">02</span> projects</a>
-      <a href="#contact" class="nav__link"><span class="nav__idx">03</span> contact</a>
-    </nav>
-    <button class="nav__menu" id="navMenu" aria-label="菜单" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">
+        <span class="nav-bracket">[</span>sientys<span class="nav-bracket">]</span><span class="nav-cursor">_</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"><span class="nav-idx">01</span> <span data-i18n="nav.home">home</span></a></li>
+        <li><a href="#about"><span class="nav-idx">02</span> <span data-i18n="nav.about">about</span></a></li>
+        <li><a href="#projects"><span class="nav-idx">03</span> <span data-i18n="nav.projects">projects</span></a></li>
+        <li><a href="#contact"><span class="nav-idx">04</span> <span data-i18n="nav.contact">contact</span></a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-dot"></span>
+          <span data-i18n="lang.label">CN</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-  <!-- 移动端下拉 -->
-  <div class="nav__drawer" id="navDrawer" aria-hidden="true">
-    <a href="#about" class="nav__link"><span class="nav__idx">01</span> about</a>
-    <a href="#projects" class="nav__link"><span class="nav__idx">02</span> projects</a>
-    <a href="#contact" class="nav__link"><span class="nav__idx">03</span> contact</a>
-  </div>
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <!-- Avatar -->
+      <div class="hero-avatar-wrapper reveal">
+        <div class="hero-avatar-ring"></div>
+        <img src="image.jpg" alt="Sientys Avatar" class="hero-avatar" width="160" height="160" loading="eager">
+        <span class="hero-status" title="online">
+          <span class="hero-status-dot"></span>online
+        </span>
+      </div>
 
-  <main id="top">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero__inner">
-        <div class="hero__avatar reveal">
-          <div class="hero__avatar-ring"></div>
-          <img src="image.jpg" alt="sientys avatar" loading="eager" />
-          <span class="hero__status" title="online">
-            <span class="hero__status-dot"></span>online
-          </span>
-        </div>
-
-        <p class="hero__prefix reveal">
-          <span class="prompt">sientys@sientys.top</span>:<span class="prompt-path">~</span>$
-          <span class="hero__typed" id="typed"></span><span class="hero__caret" id="caret">▋</span>
-        </p>
-
-        <h1 class="hero__title reveal">
-          <span class="line">building things</span>
-          <span class="line">that <span class="grad">don't suck</span>.</span>
-        </h1>
-
-        <p class="hero__sub reveal">
-          full-stack tinkerer · 终端原教旨主义者 · 把想法编译成可运行的东西。
-        </p>
-
-        <div class="hero__cta reveal">
-          <a href="#projects" class="btn btn--primary">
-            <span>查看项目</span>
-            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="#contact" class="btn btn--ghost">say hi</a>
+      <!-- Name + typewriter -->
+      <div class="hero-text">
+        <div class="hero-greeting reveal" data-i18n="hero.greeting">Hello, I am</div>
+        <h1 class="hero-name reveal">Sientys<span class="cursor">_</span></h1>
+        <div class="hero-typewriter reveal">
+          <span id="typewriter-text"></span>
+          <span class="typewriter-cursor">|</span>
         </div>
       </div>
 
-      <div class="hero__scroll" aria-hidden="true">
-        <span>scroll</span>
-        <span class="hero__scroll-line"></span>
+      <p class="hero-subtitle reveal" data-i18n-html="hero.subtitle">
+        A passionate developer crafting digital experiences<br>at the intersection of <span class="highlight">code</span> and <span class="highlight">design</span>.
+      </p>
+
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary">
+          <span data-i18n="hero.cta1">View My Work</span>
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-outline"><span data-i18n="hero.cta2">Say Hi</span></a>
       </div>
-    </section>
+    </div>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <header class="section__head reveal">
-        <span class="section__tag">// 01</span>
-        <h2 class="section__title">whoami</h2>
-        <p class="section__desc">一个在 0 和 1 之间寻找浪漫的人。</p>
-      </header>
+  </section>
 
-      <div class="about">
-        <div class="about__text reveal">
-          <p>
-            我是 <strong>sientys</strong>，一个喜欢从零手搓东西的工程师。
-            白天写业务，晚上造轮子。相信优雅的代码应当像诗一样精炼，
-            也相信好的产品应当像工具一样诚实。
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about" class="about">
+    <div class="section-head reveal">
+      <span class="section-tag">// 01</span>
+      <h2 class="section-title" data-i18n="about.title">whoami</h2>
+      <p class="section-desc" data-i18n="about.desc">A human who finds romance between zeroes and ones.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card glass reveal">
+        <div class="card-bar">
+          <span class="card-dot card-dot--r"></span>
+          <span class="card-dot card-dot--y"></span>
+          <span class="card-dot card-dot--g"></span>
+          <span class="card-bar-title">~/who-i-am</span>
+        </div>
+        <div class="card-body">
+          <h3 data-i18n="about.card1.title">Who I Am</h3>
+          <p data-i18n-html="about.card1.text">
+            I'm <strong>Sientys</strong>, a self-driven engineer who treats the terminal like a second home.
+            I believe clean code reads like poetry, and good products should be as honest as tools.
           </p>
-          <p>
-            擅长在前端、后端与运维之间反复横跳，
-            偶尔折腾 <span class="hl">Cloudflare</span>、<span class="hl">自托管</span> 和各种奇怪的小脚本。
-            对终端美学、字体排印与极简设计有近乎偏执的追求。
-          </p>
-          <ul class="about__list">
-            <li><span class="about__k">stack</span><span class="about__v">TS · Go · Python · Rust(wip)</span></li>
-            <li><span class="about__k">infra</span><span class="about__v">Cloudflare · Docker · Linux</span></li>
-            <li><span class="about__k">focus</span><span class="about__v">DX tools · 静态站点 · CLI</span></li>
-            <li><span class="about__k">status</span><span class="about__v"><i class="dot dot--green"></i>building in public</span></li>
-          </ul>
         </div>
-
-        <aside class="terminal reveal">
-          <div class="terminal__bar">
-            <span class="terminal__dot terminal__dot--r"></span>
-            <span class="terminal__dot terminal__dot--y"></span>
-            <span class="terminal__dot terminal__dot--g"></span>
-            <span class="terminal__title">sientys@cloudflare: ~/about</span>
-          </div>
-          <pre class="terminal__body"><code><span class="c-dim">$</span> <span class="c-cmd">cat</span> profile.json
-{
-  <span class="c-key">"name"</span>: <span class="c-str">"sientys"</span>,
-  <span class="c-key">"role"</span>: <span class="c-str">"full-stack engineer"</span>,
-  <span class="c-key">"location"</span>: <span class="c-str">"CN / UTC+8"</span>,
-  <span class="c-key">"caffeine"</span>: <span class="c-num">true</span>,
-  <span class="c-key">"ships"</span>: <span class="c-str">"fast &gt; perfect"</span>
-}
-<span class="c-dim">$</span> <span class="c-cmd">sudo</span> make sense_ <span class="c-cursor">▋</span></code></pre>
-        </aside>
       </div>
-    </section>
+      <div class="about-card glass reveal">
+        <div class="card-bar">
+          <span class="card-dot card-dot--r"></span>
+          <span class="card-dot card-dot--y"></span>
+          <span class="card-dot card-dot--g"></span>
+          <span class="card-bar-title">~/what-i-do</span>
+        </div>
+        <div class="card-body">
+          <h3 data-i18n="about.card2.title">What I Do</h3>
+          <p data-i18n-html="about.card2.text">
+            I bounce between frontend, backend, and infrastructure.
+            Obsessed with <span class="hl">Cloudflare</span>, <span class="hl">self-hosting</span>, and weird little scripts.
+            Pursuing terminal aesthetics and typography with near-religious devotion.
+          </p>
+        </div>
+      </div>
+      <div class="about-card glass reveal">
+        <div class="card-bar">
+          <span class="card-dot card-dot--r"></span>
+          <span class="card-dot card-dot--y"></span>
+          <span class="card-dot card-dot--g"></span>
+          <span class="card-bar-title">~/what-drives-me</span>
+        </div>
+        <div class="card-body">
+          <h3 data-i18n="about.card3.title">What Drives Me</h3>
+          <p data-i18n-html="about.card3.text">
+            The thrill of turning an idea into pixels and logic — where every animation frame
+            matters and every line of code tells a story. I ship things.
+          </p>
+        </div>
+      </div>
+    </div>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="section">
-      <header class="section__head reveal">
-        <span class="section__tag">// 02</span>
-        <h2 class="section__title">latest builds</h2>
-        <p class="section__desc">最近折腾的项目，持续施工中。</p>
-      </header>
+    <!-- Tech stack -->
+    <div class="tech-stack reveal">
+      <span class="tech-tag">JavaScript</span>
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">HTML5 & CSS3</span>
+      <span class="tech-tag">Node.js</span>
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Git</span>
+      <span class="tech-tag">Linux</span>
+      <span class="tech-tag">Docker</span>
+      <span class="tech-tag">Cloudflare</span>
+    </div>
+  </section>
 
-      <div class="cards" id="cards">
-        <!-- 卡片由 main.js 注入，也提供 noscript 兜底 -->
-        <article class="card reveal">
-          <div class="card__top">
-            <span class="card__icon">▣</span>
-            <span class="card__lang">Cloudflare Pages</span>
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section id="projects" class="projects">
+    <div class="section-head reveal">
+      <span class="section-tag">// 02</span>
+      <h2 class="section-title" data-i18n="projects.title">latest builds</h2>
+      <p class="section-desc" data-i18n="projects.desc">Things I've been tinkering with. Always under construction.</p>
+    </div>
+
+    <div class="projects-grid" id="cards">
+      <noscript>
+        <article class="project-card glass">
+          <div class="project-card-bar">
+            <span class="project-dot project-dot--r"></span>
+            <span class="project-dot project-dot--y"></span>
+            <span class="project-dot project-dot--g"></span>
+            <span class="project-lang">Cloudflare Pages</span>
           </div>
-          <h3 class="card__title">sientys.top</h3>
-          <p class="card__desc">纯静态极客风个人站点，零依赖、零编译，原生 HTML/CSS/JS 手搓。</p>
-          <div class="card__tags"><span>html</span><span>css</span><span>vanilla-js</span></div>
-          <a class="card__link" href="#top"><span>查看</span> →</a>
+          <h3 class="project-title">sientys.top</h3>
+          <p class="project-desc">Pure static geek-style personal site. Zero dependencies, zero build step.</p>
+          <div class="project-tags"><span>html</span><span>css</span><span>vanilla-js</span></div>
+          <a class="project-link" href="#home"><span data-i18n="projects.view">View</span> →</a>
         </article>
-      </div>
-    </section>
+      </noscript>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section section--last">
-      <header class="section__head reveal">
-        <span class="section__tag">// 03</span>
-        <h2 class="section__title">connect</h2>
-        <p class="section__desc">频道开放，欢迎来撩。</p>
-      </header>
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" class="contact">
+    <div class="section-head reveal">
+      <span class="section-tag">// 03</span>
+      <h2 class="section-title" data-i18n="contact.title">connect</h2>
+      <p class="section-desc" data-i18n="contact.desc">Channels are open. Don't be a stranger.</p>
+    </div>
 
-      <div class="contact reveal">
-        <a class="contact__item" href="mailto:hi@sientys.top">
-          <span class="contact__k">email</span>
-          <span class="contact__v">hi@sientys.top</span>
-          <span class="contact__arrow">↗</span>
-        </a>
-        <a class="contact__item" href="https://github.com/sientys" target="_blank" rel="noopener">
-          <span class="contact__k">github</span>
-          <span class="contact__v">@sientys</span>
-          <span class="contact__arrow">↗</span>
-        </a>
-        <a class="contact__item" href="https://sientys.top" target="_blank" rel="noopener">
-          <span class="contact__k">domain</span>
-          <span class="contact__v">sientys.top</span>
-          <span class="contact__arrow">↗</span>
-        </a>
-      </div>
-    </section>
-  </main>
+    <div class="contact-items reveal">
+      <a class="contact-item glass" href="mailto:sientys0915@gmail.com">
+        <span class="contact-k">email</span>
+        <span class="contact-v">sientys0915@gmail.com</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a class="contact-item glass" href="https://github.com/sientys" target="_blank" rel="noopener">
+        <span class="contact-k">github</span>
+        <span class="contact-v">@sientys</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a class="contact-item glass" href="https://sientys.top" target="_blank" rel="noopener">
+        <span class="contact-k">domain</span>
+        <span class="contact-v">sientys.top</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+    </div>
+  </section>
 
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <span class="footer__l">© <span id="year"></span> sientys · built with ☕ &amp; raw html</span>
-    <span class="footer__r"><span class="dot dot--green"></span> all systems operational</span>
+    <p class="footer-text" data-i18n-html="footer.built">Designed &amp; Built by <strong>Sientys</strong> &copy; <span id="year"></span></p>
+    <p class="footer-tagline" data-i18n="footer.tagline">Crafted with &#x26A1; on the command line</p>
   </footer>
 
-  <script src="main.js" defer></script>
+  <script src="main.js"></script>
 </body>
 </html>
